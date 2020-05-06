@@ -59,7 +59,8 @@ class Tree {
   }
 
   /**
-   * Node values when searching depth first, treat values as a "stack"
+   * Node values for postorder traversal (doesn't actually treverse in 
+   *   postorder) 
    */
   valuesDepthFirst = (): Array<any> => {
     const values = [this.root.value];
