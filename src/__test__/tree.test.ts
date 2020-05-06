@@ -1,6 +1,11 @@
 import Tree from "../Tree";
 
 describe("Tree", () => {
+  /**
+   *      1
+   *    2   4
+   *  3
+   */
   const objectNodes = {
     value: 1,
     children: [
@@ -39,6 +44,11 @@ describe("Tree", () => {
   });
 
   describe("valuesDepthFirst", () => {
-    expect(tree.valuesDepthFirst()).toEqual([3, 4, 2, 1]);
+    describe('postOrder', () => {
+      it("should return values in the correct order", () => {
+        expect(tree.valuesDepthFirst({ traversal: 'postOrder' }))
+        .toEqual([3, 2, 4, 1]);
+      });
+    })
   });
 });

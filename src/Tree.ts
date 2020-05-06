@@ -10,6 +10,12 @@ type NodeObject = {
 };
 
 /**
+ * The types of depth first search traversals
+ * @typedef Traversal
+ */
+type Traversal = 'inOrder' | 'levelOrder' | 'postOrder' | 'preOrder';
+
+/**
  * A class representing a tree
  */
 class Tree {
@@ -30,7 +36,7 @@ class Tree {
       nodeObjectChildrenTuples = nodeObjectChildrenTuples.reduce(
         (newTuples, [node, objectChildren]) => {
           node.children = objectChildren.map((child) => {
-            const newNode = new Node({ value: child.value });
+            const newNode = new Node({ parent: node, value: child.value });
             newTuples.push([newNode, child.children]);
             return newNode;
           });
@@ -60,22 +66,34 @@ class Tree {
     return values;
   };
 
+  depthFirstPostOrder = (node = this.root, values = []): Array<any> => {
+    const { children } = node;
+    if (children.length === 0) {
+      values.push(node.value);
+      return values;
+    }
+
+    children.forEach(child => {
+      values = this.depthFirstPostOrder(child, values);
+    });
+
+    values.push(node.value);
+
+    return values;
+  }
+
   /**
    * Node values for postorder traversal (doesn't actually treverse in
    *   postorder)
    */
-  valuesDepthFirst = (): Array<any> => {
-    const values = [this.root.value];
-    let children = this.root.children;
-    while (children.length > 0) {
-      children = children.reduce((nextChildren, child) => {
-        values.unshift(child.value);
-        nextChildren.push(...child.children);
-        return nextChildren;
-      }, []);
+  valuesDepthFirst = ({ traversal = 'postOrder' }: { traversal: Traversal }): Array<any> => {
+    switch (traversal) {
+      case('inOrder'):
+      case('levelOrder'):
+      case('postOrder'):
+        return this.depthFirstPostOrder();
+      case('preOrder'):
     }
-
-    return values;
   };
 }
 
@@ -84,6 +102,7 @@ class Tree {
  */
 class Node {
   children: Array<Node>;
+  parent?: Node;
   value: any;
 
   /**
@@ -93,9 +112,11 @@ class Node {
    */
   constructor({
     children = [],
+    parent,
     value,
   }: {
     children?: Array<Node>;
+    parent?: Node,
     value: any;
   }) {
     Object.assign(this, { children, value });
