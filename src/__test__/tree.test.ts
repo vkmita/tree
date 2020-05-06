@@ -40,13 +40,13 @@ describe("Tree", () => {
   describe("traversalValues", () => {
     describe('postOrder', () => {
       it("should return values in the correct order", () => {
-        expect(tree.traversalValues({ traversal: 'postOrder' }))
+        expect(tree.values({ traversal: 'postOrder' }))
         .toEqual([3, 2, 4, 1]);
       });
     });
     describe('levelOrder', () => {
       it("should return values in the correct order", () => {
-        expect(tree.traversalValues({ traversal: 'levelOrder' })).toEqual([1, 2, 4, 3]);
+        expect(tree.values({ traversal: 'levelOrder' })).toEqual([1, 2, 4, 3]);
       });
     });
   });

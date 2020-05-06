@@ -86,7 +86,7 @@ class Tree {
    * Node values for postorder traversal (doesn't actually treverse in
    *   postorder)
    */
-  traversalValues = ({ traversal }: { traversal: Traversal }): Array<any> => {
+  values = ({ traversal }: { traversal: Traversal }): Array<any> => {
     switch (traversal) {
       case('inOrder'):
       case('levelOrder'):
