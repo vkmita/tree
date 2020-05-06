@@ -82,6 +82,17 @@ class Tree {
     return values;
   }
 
+  preOrderValues = (node = this.root, values = []): Array<any> => {
+    values.push(node.value);
+
+    const { children } = node;
+    children.forEach(child => {
+      values = this.preOrderValues(child, values);
+    });
+
+    return values;
+  }
+
   /**
    * Node values for postorder traversal (doesn't actually treverse in
    *   postorder)
@@ -94,6 +105,7 @@ class Tree {
       case('postOrder'):
         return this.postOrderValues();
       case('preOrder'):
+        return this.preOrderValues();
     }
   };
 }
