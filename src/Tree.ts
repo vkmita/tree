@@ -7,7 +7,7 @@
 type NodeObject = {
   value: any;
   children: Array<NodeObject>;
-}
+};
 
 /**
  * A class representing a tree
@@ -17,25 +17,27 @@ class Tree {
 
   /**
    * Create an instance of a tree from a js object
-   * @param treeObject 
+   * @param treeObject
    */
   constructor(treeObject: NodeObject) {
     const root = new Node({ value: treeObject.value });
 
     // this is pretty gnarly, but works quite well
-    let nodeObjectChildrenTuples: Array<[Node, Array<NodeObject>]> = [[root, treeObject.children]] 
+    let nodeObjectChildrenTuples: Array<[Node, Array<NodeObject>]> = [
+      [root, treeObject.children],
+    ];
     while (nodeObjectChildrenTuples.length > 0) {
       nodeObjectChildrenTuples = nodeObjectChildrenTuples.reduce(
         (newTuples, [node, objectChildren]) => {
-          node.children = objectChildren.map(
-            child => {
-              const newNode = new Node ({ value: child.value })
-              newTuples.push([newNode, child.children]);
-              return newNode;
-            }
-          )
+          node.children = objectChildren.map((child) => {
+            const newNode = new Node({ value: child.value });
+            newTuples.push([newNode, child.children]);
+            return newNode;
+          });
           return newTuples;
-        }, [])
+        },
+        []
+      );
     }
 
     this.root = root;
@@ -52,15 +54,15 @@ class Tree {
         values.push(child.value);
         nextChildren.push(...child.children);
         return nextChildren;
-      }, [])
+      }, []);
     }
 
     return values;
-  }
+  };
 
   /**
-   * Node values for postorder traversal (doesn't actually treverse in 
-   *   postorder) 
+   * Node values for postorder traversal (doesn't actually treverse in
+   *   postorder)
    */
   valuesDepthFirst = (): Array<any> => {
     const values = [this.root.value];
@@ -70,11 +72,11 @@ class Tree {
         values.unshift(child.value);
         nextChildren.push(...child.children);
         return nextChildren;
-      }, [])
+      }, []);
     }
 
     return values;
-  }
+  };
 }
 
 /**
@@ -89,10 +91,13 @@ class Node {
    * @param children The child nodes of the current node
    * @param value The value of the node
    */
-  constructor(
-    { children = [], value }: 
-    { children?: Array<Node>, value: any }
-  ) {
+  constructor({
+    children = [],
+    value,
+  }: {
+    children?: Array<Node>;
+    value: any;
+  }) {
     Object.assign(this, { children, value });
   }
 }
