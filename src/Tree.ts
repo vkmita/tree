@@ -10,7 +10,7 @@ type NodeObject = {
 };
 
 /**
- * The types of depth first search traversals
+ * The types of tree traversals
  * @typedef Traversal
  */
 type Traversal = 'levelOrder' | 'postOrder' | 'preOrder';
