@@ -1,0 +1,8 @@
+{
+  "name": "tree",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:vkmita/tree.git",
+  "author": "Victor Kmita <me@vkmita.com>",
+  "license": "MIT"
+}
