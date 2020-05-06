@@ -9,6 +9,10 @@ type NodeObject = {
 class Tree {
   root: Node;
 
+  /**
+   * Create an instance of a tree from a js object
+   * @param treeObject 
+   */
   constructor(treeObject: NodeObject) {
     const root = new Node({ value: treeObject.value });
 

@@ -28,6 +28,7 @@ describe('Tree', () => {
       expect(tree.root.children[0].value).toEqual(2);
       expect(tree.root.children[1].value).toEqual(4);
       expect(tree.root.children[0].children[0].value).toEqual(3);
+      expect(tree.root.children[0].children[0].children).toEqual([]);
     })
   })
 })
