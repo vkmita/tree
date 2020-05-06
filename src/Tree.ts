@@ -40,6 +40,40 @@ class Tree {
 
     this.root = root;
   }
+
+  /**
+   * Node values when searching breadth first, treat values as a "queue"
+   */
+  valuesBreadthFirst = (): Array<any> => {
+    const values = [this.root.value];
+    let children = this.root.children;
+    while (children.length > 0) {
+      children = children.reduce((nextChildren, child) => {
+        values.push(child.value);
+        nextChildren.push(...child.children);
+        return nextChildren;
+      }, [])
+    }
+
+    return values;
+  }
+
+  /**
+   * Node values when searching depth first, treat values as a "stack"
+   */
+  valuesDepthFirst = (): Array<any> => {
+    const values = [this.root.value];
+    let children = this.root.children;
+    while (children.length > 0) {
+      children = children.reduce((nextChildren, child) => {
+        values.unshift(child.value);
+        nextChildren.push(...child.children);
+        return nextChildren;
+      }, [])
+    }
+
+    return values;
+  }
 }
 
 /**
