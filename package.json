@@ -5,6 +5,9 @@
   "repository": "git@github.com:vkmita/tree.git",
   "author": "Victor Kmita <me@vkmita.com>",
   "license": "MIT",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "@babel/plugin-transform-typescript": "^7.9.6",
     "@types/jest": "^25.2.1",
