@@ -52,7 +52,7 @@ class Tree {
   /**
    * Node values when searching breadth first, treat values as a "queue"
    */
-  valuesBreadthFirst = (): Array<any> => {
+  levelOrderValues = (): Array<any> => {
     const values = [this.root.value];
     let children = this.root.children;
     while (children.length > 0) {
@@ -66,7 +66,7 @@ class Tree {
     return values;
   };
 
-  depthFirstPostOrder = (node = this.root, values = []): Array<any> => {
+  postOrderValues = (node = this.root, values = []): Array<any> => {
     const { children } = node;
     if (children.length === 0) {
       values.push(node.value);
@@ -74,7 +74,7 @@ class Tree {
     }
 
     children.forEach(child => {
-      values = this.depthFirstPostOrder(child, values);
+      values = this.postOrderValues(child, values);
     });
 
     values.push(node.value);
@@ -86,12 +86,13 @@ class Tree {
    * Node values for postorder traversal (doesn't actually treverse in
    *   postorder)
    */
-  valuesDepthFirst = ({ traversal = 'postOrder' }: { traversal: Traversal }): Array<any> => {
+  traversalValues = ({ traversal }: { traversal: Traversal }): Array<any> => {
     switch (traversal) {
       case('inOrder'):
       case('levelOrder'):
+        return this.levelOrderValues();
       case('postOrder'):
-        return this.depthFirstPostOrder();
+        return this.postOrderValues();
       case('preOrder'):
     }
   };

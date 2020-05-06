@@ -37,18 +37,17 @@ describe("Tree", () => {
     });
   });
 
-  describe("valuesBreadthFirst", () => {
-    it("should return values in the correct order", () => {
-      expect(tree.valuesBreadthFirst()).toEqual([1, 2, 4, 3]);
-    });
-  });
-
-  describe("valuesDepthFirst", () => {
+  describe("traversalValues", () => {
     describe('postOrder', () => {
       it("should return values in the correct order", () => {
-        expect(tree.valuesDepthFirst({ traversal: 'postOrder' }))
+        expect(tree.traversalValues({ traversal: 'postOrder' }))
         .toEqual([3, 2, 4, 1]);
       });
-    })
+    });
+    describe('levelOrder', () => {
+      it("should return values in the correct order", () => {
+        expect(tree.traversalValues({ traversal: 'levelOrder' })).toEqual([1, 2, 4, 3]);
+      });
+    });
   });
 });
