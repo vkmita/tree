@@ -13,7 +13,7 @@ type NodeObject = {
  * The types of depth first search traversals
  * @typedef Traversal
  */
-type Traversal = 'inOrder' | 'levelOrder' | 'postOrder' | 'preOrder';
+type Traversal = 'levelOrder' | 'postOrder' | 'preOrder';
 
 /**
  * A class representing a tree
@@ -36,7 +36,7 @@ class Tree {
       nodeObjectChildrenTuples = nodeObjectChildrenTuples.reduce(
         (newTuples, [node, objectChildren]) => {
           node.children = objectChildren.map((child) => {
-            const newNode = new Node({ parent: node, value: child.value });
+            const newNode = new Node({ value: child.value });
             newTuples.push([newNode, child.children]);
             return newNode;
           });
@@ -50,7 +50,7 @@ class Tree {
   }
 
   /**
-   * Node values when searching breadth first, treat values as a "queue"
+   * Node values when traversing in level order (also "breadth first")
    */
   levelOrderValues = (): Array<any> => {
     const values = [this.root.value];
@@ -66,6 +66,9 @@ class Tree {
     return values;
   };
 
+  /**
+   * Node values when traversing in post order
+   */
   postOrderValues = (node = this.root, values = []): Array<any> => {
     const { children } = node;
     if (children.length === 0) {
@@ -82,6 +85,9 @@ class Tree {
     return values;
   }
 
+  /**
+   * Node values when traversing in pre order
+   */
   preOrderValues = (node = this.root, values = []): Array<any> => {
     values.push(node.value);
 
@@ -94,12 +100,10 @@ class Tree {
   }
 
   /**
-   * Node values for postorder traversal (doesn't actually treverse in
-   *   postorder)
+   * Node values for traversal in the specified traversal order
    */
   values = ({ traversal }: { traversal: Traversal }): Array<any> => {
     switch (traversal) {
-      case('inOrder'):
       case('levelOrder'):
         return this.levelOrderValues();
       case('postOrder'):
@@ -115,7 +119,6 @@ class Tree {
  */
 class Node {
   children: Array<Node>;
-  parent?: Node;
   value: any;
 
   /**
@@ -125,11 +128,9 @@ class Node {
    */
   constructor({
     children = [],
-    parent,
     value,
   }: {
     children?: Array<Node>;
-    parent?: Node,
     value: any;
   }) {
     Object.assign(this, { children, value });
